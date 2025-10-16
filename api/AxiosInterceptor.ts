@@ -1,15 +1,17 @@
+import useStore from "@/store/useStore";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import axiosInstance from "./axios";
 
 export default function AxiosInterceptor() {
   const router = useRouter();
+  const { setRatingModal } = useStore();
 
   useEffect(() => {
     const interceptor = axiosInstance.interceptors.response.use(
       (response) => response,
       async (error: any) => {
-        console.log(error, "Error from Main Axios Interceptor");
+        console.log(error?.response?.data, "Error from Main Axios Interceptor");
 
         if (
           error?.response?.data?.message == "Unauthorized" ||
@@ -22,9 +24,15 @@ export default function AxiosInterceptor() {
           router.replace("/(Auth)/login");
         }
 
-        if (error?.response?.status === 403) {
-          console.log(403, "forbidennnn");
-          router.replace("/(Auth)/login");
+        if (
+          error?.response?.data?.message ==
+          "You must complete your order review before proceeding."
+        ) {
+          console.log(
+            403,
+            "You must complete your order review before proceeding."
+          );
+          setRatingModal(true);
         }
 
         return Promise.reject(error);

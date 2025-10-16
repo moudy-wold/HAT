@@ -70,7 +70,6 @@ export default function GlobalNotifications(t: any) {
   const checkLoginStatus = async () => {
     try {
       const login = await AsyncStorage.getItem("isLogend");
-      console.log("🔍 قيمة تسجيل الدخول من AsyncStorage:", login);
 
       const isLoggedIn = login === "true";
 

@@ -5,10 +5,11 @@ import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Modal, Text, TouchableOpacity, View } from "react-native";
 import tw from "twrnc";
 import GlobalNotifications from "../GlobalNotifications/GlobalNotifications";
 import Loader from "../Loader/Loader";
+import RatingModal from "../RatingModal/RatingModal";
 import CustomPicker from "../SelectSericeZone/SelectServiceZone";
 function Navbar() {
   const { t, i18n } = useTranslation();
@@ -18,6 +19,7 @@ function Navbar() {
   const router = useRouter();
   const [showPicker, setShowPicker] = useState(false);
   const [selected, setSelected] = useState<any>(null);
+  const [unComplitedOrder, setUnComplitedOrder] = useState<any>(null);
 
   const {
     refreshCart,
@@ -26,6 +28,8 @@ function Navbar() {
     set_wishList_length,
     set_wishList_ids,
     setRefreshHomeScreenData,
+    ratingModal,
+    setRatingModal,
   } = useStore();
 
   const handleChangeZone = async (value: { id: string; name: string }) => {
@@ -64,6 +68,12 @@ function Navbar() {
       set_wishList_ids(newIds);
     } catch (err: any) {
       console.error(err);
+      if (
+        err.response.data.message ==
+        "You must complete your order review before proceeding."
+      ) {
+        setUnComplitedOrder(err?.response?.data?.data[0] || null);
+      }
     }
   };
 
@@ -129,6 +139,16 @@ function Navbar() {
       />
       {/* End Choose Zone Modal */}
       {/* End Cart Icon */}
+
+      {/* Start Rating Modal */}
+      <Modal transparent visible={ratingModal} animationType="fade">
+        <RatingModal
+          isOpen={ratingModal}
+          onClose={() => setRatingModal(false)}
+          orderData={unComplitedOrder}
+        />
+      </Modal>
+      {/* End Rating Modal */}
     </View>
   );
 }

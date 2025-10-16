@@ -9,7 +9,9 @@ const useStore = create((set, get) => ({
   visibleSections: [],
   categoryData: {},
   refreshHomeScreenData: false,
+  ratingModal: false,
 
+  setRatingModal: (value) => set({ ratingModal: value }),
   setRefreshHomeScreenData: () =>
     set({ refreshHomeScreenData: !get().refreshHomeScreenData }),
   setVisibleSections: (sections) => set({ visibleSections: sections }),
