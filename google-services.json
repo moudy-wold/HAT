@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "325476259703",
+    "project_id": "hatt-455d7",
+    "storage_bucket": "hatt-455d7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325476259703:android:b360b4eb0e97b322ecf372",
+        "android_client_info": {
+          "package_name": "com.logicprodev.hat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXzvUbgpz0U0QAfvq9LQV_KF-8h2HPesM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
